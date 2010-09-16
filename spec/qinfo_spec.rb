@@ -7,10 +7,6 @@ describe Qinfo do
       @qinfo = Qinfo.new("testuser", "testpass", "fyre")
     end
 
-    it "should initialize itself with config data" do
-      @qinfo.user.should eql("testuser")
-    end
-
     it "should add SQL_NO_CACHE directive if not present" do
       @qinfo.prepare_query("SELECT * FROM accounts LIMIT 10;").should =~ /SQL_NO_CACHE/
     end

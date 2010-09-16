@@ -1,9 +1,8 @@
 class Qinfo
-  attr_accessor :user, :password, :base, :qonection
+  attr_accessor :qonection
   
   def initialize(user, password, base)
-    @user, @password, @base = user, password, base
-    @qonection = Mysql2::Client.new(:host => "localhost", :username => @user, :password => @password, :database => @base)
+    @qonection = Mysql2::Client.new(:host => "localhost", :username => user, :password => password, :database => base)
   end
 
   def execute(query)
