@@ -1,10 +1,20 @@
 require File.dirname(__FILE__) + '/../lib/qinfo'
+require 'mysql2'
+require 'yaml'
 
 describe Qinfo do
   context "perform a simple query" do
 
     before(:all) do
-      @qinfo = Qinfo.new("testuser", "testpass", "fyre")
+      config_file = File.dirname(__FILE__) + '/../config.yml'
+      config = YAML::parse( File.open(File.expand_path(config_file)))
+      @user = config["user"].value
+      @password = config["password"].value
+      @database = config["base"].value
+    end
+
+    before(:each) do
+      @qinfo = Qinfo.new(@user, @password, @database)
     end
 
     it "should add SQL_NO_CACHE directive if not present" do
@@ -12,7 +22,7 @@ describe Qinfo do
     end
 
     it "should perform a simple query" do
-      @qinfo.execute("SELECT * FROM accounts LIMIT 10;").first.should match("access")
+      @qinfo.execute("SELECT * FROM accounts LIMIT 10;").first.should match("john")
     end
 
     it "should perform benchark on times, the result should be close to 0" do

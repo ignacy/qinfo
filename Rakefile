@@ -37,4 +37,22 @@ Spec::Rake::SpecTask.new('rcov') do |t|
   t.rcov_opts = ['--exclude', 'examples']
 end
 
+
+desc "Prepare test database"
+Spec::Rake::SpecTask.new('prepare_test') do |t|
+  require 'mysql2'
+  require 'yaml'
+
+  config_file = File.dirname(__FILE__) + '/config.yml'
+  config = YAML::parse( File.open(File.expand_path(config_file)))
+  user = config["user"].value
+  password = config["password"].value
+  database = config["base"].value
+  %x[mysql -u #{user} --password=#{password} #{database} < default_test_data.sql]
+  @qonection = Mysql2::Client.new(:host => "localhost", :username => user, :password => password, :database => database)
+  100.times do |time|
+    @qonection.query("INSERT INTO accounts (name, surname, credits, age) VALUES ('john_#{time}', 'kowalski_#{time}', #{rand(1000)}, #{rand(60)})")
+  end
+end
+
 task :default => :spec

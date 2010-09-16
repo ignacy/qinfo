@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 class Qinfo
   attr_accessor :qonection
   
@@ -30,4 +31,6 @@ class Qinfo
 
 
 end
+=======
+>>>>>>> ff2038f274d4189f00a5bf5c899afa072623d1d1
 
