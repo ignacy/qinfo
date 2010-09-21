@@ -3,17 +3,22 @@ require 'mysql2'
 require 'benchmark'
 
 class Qinfo
-  attr_accessor :user, :password, :base, :qonection
+  attr_accessor :user, :password, :base, :connection, :before_status, :after_status
   
   def initialize(user, password, base)
     @user, @password, @base = user, password, base
-    @qonection = Mysql2::Client.new(:host => "localhost", :username => @user, :password => @password, :database => @base)
+    @connection = Mysql2::Client.new(:host => "localhost", :username => @user, :password => @password, :database => @base)
   end
 
   def execute(query)
     query = prepare_query(query)
-    result = @qonection.query(query)
+    result = @connection.query(query)
     return result.each.inject([]) { |s, r| s << r.to_s }
+  end
+
+  def execute_straight(query)
+    result = @connection.query(query)
+    return result
   end
 
   def prepare_query(q)
@@ -21,7 +26,7 @@ class Qinfo
   end
 
   def benchmark_time_in_miliseconds(q)
-    Benchmark.realtime { @qonection.query(prepare_query(q)) } * 1000
+    Benchmark.realtime { @connection.query(prepare_query(q)) } * 1000
   end
 
   def get_average_time_for_n_runs(n, q)
@@ -31,5 +36,15 @@ class Qinfo
     end
     average = runs.inject{ |sum, el| sum + el }.to_f / runs.size
   end
+
+  def prepare_testing_enviroment
+    @before_status = ShowStatus.new(self)
+  end
+
+  def get_results
+    @after_status = ShowStatus.new(self)
+  end
+
+
 end
 

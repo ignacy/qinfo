@@ -1,20 +1,12 @@
 require File.dirname(__FILE__) + '/../lib/qinfo'
-require 'mysql2'
-require 'yaml'
+
+require 'spec_helper'
 
 describe Qinfo do
   context "perform a simple query" do
 
-    before(:all) do
-      config_file = File.dirname(__FILE__) + '/../config.yml'
-      config = YAML::parse( File.open(File.expand_path(config_file)))
-      @user = config["user"].value
-      @password = config["password"].value
-      @database = config["base"].value
-    end
-
     before(:each) do
-      @qinfo = Qinfo.new(@user, @password, @database)
+      @qinfo = get_connection
     end
 
     it "should add SQL_NO_CACHE directive if not present" do
@@ -35,6 +27,25 @@ describe Qinfo do
       benched_10_times = @qinfo.get_average_time_for_n_runs(10, "SELECT * FROM accounts LIMIT 100;")
       benched_10_times.should be_close(0, 2)
     end
+
+  end
+
+
+  context "get data and prepare the raport" do
+    before(:each) do
+      @qinfo = get_connection
+    end
+
+    it "should run get show_status base info" do
+      @qinfo.prepare_testing_enviroment
+      @qinfo.before_status.should be_a ShowStatus
+    end
+
+    it "get the after status" do
+      @qinfo.get_results
+      @qinfo.after_status.should be_a ShowStatus
+    end
+
 
   end
 end
