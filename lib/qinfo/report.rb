@@ -10,12 +10,12 @@ class Report
   end
 
   def rows_read_operations
-    @before.cost_of_read_operations + @before.cost_of_InnoDB_reads +
-      @now.cost_of_InnoDB_reads + @now.cost_of_read_operations
+    (@before.cost_of_read_operations + @before.cost_of_InnoDB_reads) -
+      (@now.cost_of_InnoDB_reads + @now.cost_of_read_operations)
   end
 
   def rows_insert_operations
-
+    @before.cost_of_InnoDB_insert_operations - @now.cost_of_InnoDB_insert_operations
   end
 
   def io_operations

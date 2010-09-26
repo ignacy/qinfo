@@ -5,11 +5,13 @@ describe ShowStatus do
   context "get server's status" do
     before(:each) do
       @qinfo = get_connection
+      @qinfo.execute_straight("FLUSH STATUS");
+      @qinfo.execute_straight("SELECT * FROM accounts LIMIT 10;")
       @show_status = ShowStatus.new(@qinfo)
     end
 
     it "should get the info for base profile" do
-      @show_status.last_query_cost.should eql(0)
+      @show_status.last_query_cost.should >= 0
 
       @show_status.innodb_rows_read.should >= 0
       @show_status.innodb_rows_inserted.should >= 0

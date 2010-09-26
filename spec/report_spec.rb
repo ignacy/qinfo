@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../lib/report'
+require File.dirname(__FILE__) + '/../lib/qinfo/report'
 require 'spec_helper'
 
 describe Report do
@@ -12,14 +12,32 @@ describe Report do
     end
 
     it "should set necessary fields" do
-#      @report.time.should > 0
+      #      @report.time.should > 0
+    end
+
+    it "should set query cost" do
       @report.query_cost.should > 0
-      @report.rows_read_operations
-      @report.rows_insert_operations
-      @report.io_operations
+    end
+
+    it "should count row read operations" do
+      @report.rows_read_operations.should be_a Integer
+    end
+
+    it "should count row insert operations" do
+      @report.rows_insert_operations.should be_a Integer
+    end
+
+    it "should count io operations" do
+      @report.io_operations.should be_a Integer
+    end
+
+    it "should not cache the query" do
       @report.query_cached?.should be_false
-      @report.locks_immediate
-      @report.locks_waited
+    end
+
+    it "should get the locks values" do
+      @report.locks_immediate.should be_a Integer
+      @report.locks_waited.should be_a Integer
     end
   end
 end

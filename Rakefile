@@ -5,7 +5,7 @@ begin
   Jeweler::Tasks.new do |gemspec|
     gemspec.name = "qinfo"
     gemspec.summary = "MySQL Query Info"
-    gemspec.description = "Benchmarks SQL query against MySQL/OS facilities"
+    gemspec.description = "Benchmarks SQL queries using Ruby"
     gemspec.email = "imoryc@gmail.com"
     gemspec.homepage = "http://github.com/ignacy/qinfo"
     gemspec.authors = ["Ignacy Moryc"]

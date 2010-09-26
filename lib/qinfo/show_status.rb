@@ -22,10 +22,12 @@ class ShowStatus
     return cost + self.innodb_buffer_pool_reads
   end
 
-
-
   def cost_of_IO_operations
     key_prefixed + created_prefixed
+  end
+
+  def cost_of_InnoDB_insert_operations
+    self.innodb_rows_inserted + self.innodb_rows_updated 
   end
 
   private
@@ -43,8 +45,4 @@ class ShowStatus
   def created_prefixed
     self.created_tmp_disk_tables + self.created_tmp_files + self.created_tmp_tables      
   end
-
-
-
-
 end
