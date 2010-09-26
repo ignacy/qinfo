@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{qinfo}
-  s.version = "0.2.0"
+  s.version = "1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ignacy Moryc"]
@@ -18,14 +18,20 @@ Gem::Specification.new do |s|
   s.files = [
     ".gitignore",
      "README.md",
+     "RMU_REVIEW",
      "Rakefile",
      "VERSION",
      "config.yml.default",
      "default_test_data.sql",
+     "examples/full_report.rb",
+     "examples/helper.rb",
      "examples/simple_benchamrk.rb",
      "lib/qinfo.rb",
      "lib/qinfo/report.rb",
      "lib/qinfo/show_status.rb",
+     "lib/report/html.rb",
+     "lib/report/string.rb",
+     "qinfo.gemspec",
      "spec/qinfo_spec.rb",
      "spec/report_spec.rb",
      "spec/show_status_spec.rb",
@@ -41,7 +47,9 @@ Gem::Specification.new do |s|
      "spec/spec_helper.rb",
      "spec/report_spec.rb",
      "spec/qinfo_spec.rb",
-     "examples/simple_benchamrk.rb"
+     "examples/full_report.rb",
+     "examples/simple_benchamrk.rb",
+     "examples/helper.rb"
   ]
 
   if s.respond_to? :specification_version then
