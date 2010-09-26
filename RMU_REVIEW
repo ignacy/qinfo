@@ -3,14 +3,31 @@ Setup
 
 To setup you need to create config.yml (there's a config.yml.default file that shows an example setup).
 After that you need to run default rake task - it'll create test table, populate it and run all the specs.
+There are also 2 examples one of a simple time benchmark and one for a full report.
 
 Summary
 =====
 
+What I have accomplished:
+- benchmarking the query using ruby Benchmark class (also benchmarking average time for arbitrary number of runs)
+https://github.com/ignacy/qinfo/blob/master/lib/qinfo.rb#L34
 
+- preparing query for profiling (adding "SQL_NO_CACHE" if it's not present
+https://github.com/ignacy/qinfo/blob/master/lib/qinfo.rb#L27
+
+- fetching "SHOW STATUS" data
+https://github.com/ignacy/qinfo/blob/master/lib/qinfo/show_status.rb
+
+- preparing reports
+https://github.com/ignacy/qinfo/blob/master/lib/qinfo/report.rb
+
+- made it easy to add new report formats
+https://github.com/ignacy/qinfo/blob/master/lib/qinfo/report.rb#L39
 
 Issues
 =====
+
+There are no bugs that I'm aware of. As for missing features, I'd like to add "EXPLAIN" fetching for the profiled query, also I'd like to add some additional info as to where the query was slow based on the results. 
 
 
 
