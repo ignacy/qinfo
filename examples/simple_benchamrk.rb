@@ -1,20 +1,6 @@
-require File.dirname(__FILE__) + "/../lib/qinfo"
-require 'yaml'
+require File.dirname(__FILE__) + "/helper"
 
-
-module SimpleBenchmark
-  
-  def SimpleBenchmark.prepare_config
-    config_file = File.dirname(__FILE__) + '/../config.yml'
-    config = YAML::parse( File.open(File.expand_path(config_file)))
-    user = config["user"].value
-    password = config["password"].value
-    database = config["base"].value
-    return Qinfo.new(user, password, database)
-  end
-end
-
-qinfo = SimpleBenchmark.prepare_config
+qinfo = Helper.prepare_config
 
 q1 = "SELECT * FROM accounts"
 q2 = "SELECT id FROM accounts"

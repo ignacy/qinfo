@@ -11,10 +11,6 @@ describe Report do
       @report = Report.new(before, after)
     end
 
-    it "should set necessary fields" do
-      #      @report.time.should > 0
-    end
-
     it "should set query cost" do
       @report.query_cost.should > 0
     end

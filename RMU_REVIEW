@@ -1,0 +1,16 @@
+Setup
+=====
+
+To setup you need to create config.yml (there's a config.yml.default file that shows an example setup).
+After that you need to run default rake task - it'll create test table, populate it and run all the specs.
+
+Summary
+=====
+
+
+
+Issues
+=====
+
+
+

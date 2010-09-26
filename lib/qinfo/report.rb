@@ -33,4 +33,14 @@ class Report
   def locks_waited
     @now.table_locks_waited - @before.table_locks_waited
   end
+
+  def method_missing(format, *args, &block)
+    case(format.to_s)
+    when /^to_(.*)/
+      require File.dirname(__FILE__) + "/../report/#{$1}"
+      instance_eval("Formats::#{$1.capitalize}.new(self)")
+    else
+      super
+    end
+  end
 end

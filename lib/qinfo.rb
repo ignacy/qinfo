@@ -1,6 +1,8 @@
 require 'rubygems'
 require 'mysql2'
 require 'benchmark'
+require File.dirname(__FILE__) + "/qinfo/show_status"
+require File.dirname(__FILE__) + "/qinfo/report"
 
 class Qinfo
   attr_accessor :user, :password, :base, :connection, :before_status, :after_status
@@ -45,6 +47,9 @@ class Qinfo
     @after_status = ShowStatus.new(self)
   end
 
+  def get_report
+    Report.new @before_status, @after_status
+  end
 
 end
 
