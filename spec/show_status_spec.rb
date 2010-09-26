@@ -9,18 +9,21 @@ describe ShowStatus do
     end
 
     it "should get the info for base profile" do
-      @show_status.Last_query_cost.should eql(0)
+      @show_status.last_query_cost.should eql(0)
 
-      @show_status.Innodb_rows_read.should >= 0
-      @show_status.Innodb_rows_inserted.should >= 0
+      @show_status.innodb_rows_read.should >= 0
+      @show_status.innodb_rows_inserted.should >= 0
 
       @show_status.cost_of_IO_operations.should >= 0
-      
-      @show_status.Qcache_queries_in_cache.should >= 0
-      
-      @show_status.Table_locks_immediate.should >= 0
-      @show_status.Table_locks_waited.should eql(0)
     end
 
+    it "should recognize that query was cached" do
+      @show_status.qcache_queries_in_cache.should >= 0
+    end
+  
+    it "should be able to read table locks statistics" do
+      @show_status.table_locks_immediate.should >= 0
+      @show_status.table_locks_waited.should eql(0)
+    end
   end
 end

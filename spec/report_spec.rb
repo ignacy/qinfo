@@ -12,7 +12,7 @@ describe Report do
     end
 
     it "should set necessary fields" do
-      @report.time.should > 0
+#      @report.time.should > 0
       @report.query_cost.should > 0
       @report.rows_read_operations
       @report.rows_insert_operations
@@ -21,13 +21,5 @@ describe Report do
       @report.locks_immediate
       @report.locks_waited
     end
-
-
-      
-
-
-
   end
-
-
 end
